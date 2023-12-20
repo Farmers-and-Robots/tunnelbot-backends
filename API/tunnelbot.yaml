@@ -1,0 +1,516 @@
+openapi: 3.0.3
+info:
+  title: Tunnelbot - OpenAPI 3.0
+  description: |-
+    This is the API specification for the tunnelbot backend.
+  contact:
+    email: info@farmersandrobots.com
+  license:
+    name: GNU General Public License
+    url: https://www.gnu.org/licenses/
+  version: 3
+externalDocs:
+  description: See the Tunnelbot project - 
+  url: https://github.com/orgs/Farmers-and-Robots/projects/4
+servers:
+  - url: https://tunnelbot.swagger.io/api/v3
+tags:
+  - name: farm
+    description: Operations for creating the farm scope in tunnelbot.
+  - name: tunnels
+    description: Operations for tunnels in tunnelbot.
+  - name: people
+    description: Manage admins and workers for a tunnel farm.
+  - name: devices
+    description: Control devices in tunnels with a connector.
+    externalDocs:
+      description: Find out more
+      url: https://github.com/orgs/Farmers-and-Robots/projects/4
+paths:
+  /farm:
+    put:
+      tags:
+        - pet
+      summary: Update an existing farm
+      description: Update an existing farm by ID
+      operationId: updateFarm
+      requestBody:
+        description: Update an existent farm
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Farm not found
+        '405':
+          description: Validation exception
+      security:
+        - tunnelbot_auth:
+            - write:farm
+            - read:farm
+    post:
+      tags:
+        - farm
+      summary: Add a new farm to the db
+      description: Add a new farm to the db
+      operationId: addFarm
+      requestBody:
+        description: Create a new farm in the db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '405':
+          description: Invalid input
+      security:
+        - tunnelbot_auth:
+            - write:farm
+            - read:farm
+  /farm/findByName:
+    get:
+      tags:
+        - farm
+      summary: Finds a farm by name
+      description: Looks up the farm by name
+      operationId: findFarmByName
+      parameters:
+        - name: name
+          in: query
+          description: String for farm name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Farm'
+        '400':
+          description: Invalid status value
+      security:
+        - tunnelbot_auth:
+            - write:farm
+            - read:farm
+  /farm/{farmId}:
+    get:
+      tags:
+        - farm
+      summary: Find farm by id
+      description: Returns a single farm
+      operationId: getFarmById
+      parameters:
+        - name: farmId
+          in: path
+          description: id of farm to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Farm not found
+      security:
+        - api_key: []
+        - tunnelbot_auth:
+            - write:farm
+            - read:farm
+    delete:
+      tags:
+        - farm
+      summary: Deletes a farm
+      description: delete a farm
+      operationId: deleteFarm
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: farmId
+          in: path
+          description: Farm id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid farm value
+      security:
+        - tunnelbot_auth:
+            - write:farm
+            - read:farm
+  /tunnel:
+    put:
+      tags:
+        - pet
+      summary: Update an existing tunnel
+      description: Update an existing tunnel by ID
+      operationId: updateTunnel
+      requestBody:
+        description: Update an existent tunnel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tunnel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tunnel'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tunnel'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Tunnel not found
+        '405':
+          description: Validation exception
+      security:
+        - tunnelbot_auth:
+            - write:tunnel
+            - read:tunnel
+    post:
+      tags:
+        - tunnel
+      summary: Add a new tunnel to the db
+      description: Add a new tunnel to the db
+      operationId: addTunnel
+      requestBody:
+        description: Create a new tunnel in the db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tunnel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tunnel'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tunnel'
+        '405':
+          description: Invalid input
+      security:
+        - tunnelbot_auth:
+            - write:tunnel
+            - read:tunnel
+  /tunnel/{tunnelId}:
+    get:
+      tags:
+        - tunnel
+      summary: Find tunnel by id
+      description: Returns a single tunnel
+      operationId: getTunnelById
+      parameters:
+        - name: tunnelId
+          in: path
+          description: id of tunnel to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tunnel'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Tunnel'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Tunnel not found
+      security:
+        - api_key: [ ]
+        - tunnelbot_auth:
+            - write:tunnel
+            - read:tunnel
+    delete:
+      tags:
+        - tunnel
+      summary: Deletes a tunnel
+      description: delete a tunnel
+      operationId: deleteTunnel
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: tunnelId
+          in: path
+          description: Tunnel id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid tunnel value
+      security:
+        - tunnelbot_auth:
+            - write:tunnel
+            - read:tunnel
+  /device:
+    put:
+      tags:
+        - device
+      summary: Update an existing device
+      description: Update an existing device by ID
+      operationId: updateDevice
+      requestBody:
+        description: Update an existent device
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Device'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Device'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Device not found
+        '405':
+          description: Validation exception
+      security:
+        - tunnelbot_auth:
+            - write:device
+            - read:device
+    post:
+      tags:
+        - device
+      summary: Add a new device to the db
+      description: Add a new device to the db
+      operationId: addDevice
+      requestBody:
+        description: Create a new device in the db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Device'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Device'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '405':
+          description: Invalid input
+      security:
+        - tunnelbot_auth:
+            - write:device
+            - read:device
+  /device/{deviceId}:
+    get:
+      tags:
+        - device
+      summary: Find device by id
+      description: Returns a single device
+      operationId: getDeviceById
+      parameters:
+        - name: deviceId
+          in: path
+          description: id of device to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Device not found
+      security:
+        - api_key: [ ]
+        - tunnelbot_auth:
+            - write:device
+            - read:device
+    delete:
+      tags:
+        - device
+      summary: Deletes a device
+      description: delete a device
+      operationId: deleteDevice
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: deviceId
+          in: path
+          description: Device id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid device value
+      security:
+        - tunnelbot_auth:
+            - write:device
+            - read:device
+  /people:
+     /user/{username}:
+    get:
+      tags:
+        - user
+      summary: Get user by user name
+      description: ''
+      operationId: getUserByName
+      parameters:
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use user1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+  requestBodies:
+    Pet:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Pet'
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+  securitySchemes:
+    tunnelbot_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
