@@ -1,2 +1,2 @@
 # tunnelbot-backends
-Functions for tunnelbot
+API and functions for tunnelbot backends.
