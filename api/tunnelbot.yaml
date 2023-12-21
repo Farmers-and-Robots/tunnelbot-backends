@@ -178,6 +178,74 @@ paths:
         - tunnelbot_auth:
             - write:farm
             - read:farm
+  /farm/addFarmAccess/{farmId}:
+    put:
+      tags:
+        - farm
+      summary: Add farm access for an existing person
+      description: Add farm access for an existing person
+      operationId: addPerson
+      requestBody:
+        description: Add farm access for an existent person
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Farm not found
+        '405':
+          description: Validation exception
+      security:
+        - tunnelbot_auth:
+            - write:farm
+            - read:farm
+  /farm/removeFarmAccess/{farmId}:
+    put:
+      tags:
+        - farm
+      summary: Remove farm access for an existing person
+      description: Remove farm access for an existing person
+      operationId: removePerson
+      requestBody:
+        description: remove farm access for an existent person
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Farm not found
+        '405':
+          description: Validation exception
+      security:
+        - tunnelbot_auth:
+            - write:farm
+            - read:farm
   /tunnel:
     put:
       tags:
@@ -426,91 +494,37 @@ paths:
         - tunnelbot_auth:
             - write:device
             - read:device
-  /people:
-     /user/{username}:
+  /people/{personId}:
     get:
       tags:
-        - user
-      summary: Get user by user name
-      description: ''
-      operationId: getUserByName
+        - people
+      summary: Find person by id
+      description: Returns a single person
+      operationId: getPersonById
       parameters:
-        - name: username
+        - name: personId
           in: path
-          description: 'The name that needs to be fetched. Use user1 for testing. '
+          description: id of person to return
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Person'
             application/xml:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Person'
         '400':
-          description: Invalid username supplied
+          description: Invalid id supplied
         '404':
-          description: User not found
-    put:
-      tags:
-        - user
-      summary: Update user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: name that need to be deleted
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: Update an existent user in the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        default:
-          description: successful operation
-  requestBodies:
-    Pet:
-      description: Pet object that needs to be added to the store
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Pet'
-    UserArray:
-      description: List of user object
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-  securitySchemes:
-    tunnelbot_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
-          scopes:
-            write:pets: modify pets in your account
-            read:pets: read your pets
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+          description: Person not found
+      security:
+        - api_key: [ ]
+        - tunnelbot_auth:
+            - write:people
+            - read:people
