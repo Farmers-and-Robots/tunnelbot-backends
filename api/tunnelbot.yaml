@@ -649,7 +649,7 @@ components:
       x-swagger-router-model: tunnelbot.model.Tunnels
       type: array
       items:
-        type: object
+        $ref: "#/components/schemas/Tunnel"
     Device:
       x-swagger-router-model: tunnelbot.model.Device
       required:
@@ -669,7 +669,7 @@ components:
       x-swagger-router-model: tunnelbot.model.Devices
       type: array
       items:
-        type: object
+        $ref: "#/components/schemas/Device"
     Person:
       x-swagger-router-model: tunnelbot.model.Person
       properties:
