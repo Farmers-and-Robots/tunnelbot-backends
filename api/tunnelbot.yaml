@@ -8,7 +8,7 @@ info:
   license:
     name: GNU General Public License
     url: https://www.gnu.org/licenses/
-  version: 1
+  version: "1"
 externalDocs:
   description: See the Tunnelbot project - 
   url: https://github.com/orgs/Farmers-and-Robots/projects/4
@@ -30,7 +30,7 @@ paths:
   /farm:
     put:
       tags:
-        - pet
+        - farm
       summary: Update an existing farm
       description: Update an existing farm by ID
       operationId: updateFarm
@@ -185,13 +185,18 @@ paths:
       summary: Add farm access for an existing person
       description: Add farm access for an existing person
       operationId: addPerson
+      parameters:
+        - name: farmId
+          in: path
+          description: id of farm to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         description: Add farm access for an existent person
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/Farm'
-          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/Farm'
         required: true
@@ -219,6 +224,14 @@ paths:
       summary: Remove farm access for an existing person
       description: Remove farm access for an existing person
       operationId: removePerson
+      parameters:
+        - name: farmId
+          in: path
+          description: id of farm to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         description: remove farm access for an existent person
         content:
@@ -249,7 +262,7 @@ paths:
   /tunnel:
     put:
       tags:
-        - pet
+        - tunnel
       summary: Update an existing tunnel
       description: Update an existing tunnel by ID
       operationId: updateTunnel
@@ -561,7 +574,7 @@ components:
       properties:
         street:
           type: string
-          example: 437 Lytton
+          example: 549 Almond St
         city:
           type: string
           example: Palo Alto
