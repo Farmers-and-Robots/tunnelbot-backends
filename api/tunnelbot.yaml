@@ -17,11 +17,11 @@ servers:
 tags:
   - name: farm
     description: Operations for creating the farm scope in tunnelbot.
-  - name: tunnels
+  - name: tunnel
     description: Operations for tunnels in tunnelbot.
   - name: people
     description: Manage admins and workers for a tunnel farm.
-  - name: devices
+  - name: device
     description: Control devices in tunnels with a connector.
     externalDocs:
       description: Find out more
@@ -322,6 +322,27 @@ paths:
         - tunnelbot_auth:
             - write:tunnel
             - read:tunnel
+    get:
+      tags:
+        - tunnel
+      summary: Return the tunnels on a farm
+      description: Return the tunnels on a farm
+      operationId: getTunnels
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Tunnel"
+        '405':
+          description: Invalid input
+      security:
+        - tunnelbot_auth:
+            - write:tunnel
+            - read:tunnel
   /tunnel/{tunnelId}:
     get:
       tags:
@@ -446,6 +467,27 @@ paths:
         - tunnelbot_auth:
             - write:device
             - read:device
+    get:
+      tags:
+        - device
+      summary: Return the devices on a farm
+      description: Return the devices on a farm
+      operationId: getDevices
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Device"
+        '405':
+          description: Invalid input
+      security:
+        - tunnelbot_auth:
+            - write:tunnel
+            - read:tunnel
   /device/{deviceId}:
     get:
       tags:
@@ -507,6 +549,26 @@ paths:
         - tunnelbot_auth:
             - write:device
             - read:device
+  /people/:
+    get:
+      tags:
+        - people
+      summary: Return the people associated with a farm
+      description: Return the people associated with a farm
+      operationId: getPeople
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Person"
+      security:
+        - tunnelbot_auth:
+            - write:tunnel
+            - read:tunnel
   /people/{personId}:
     get:
       tags:
@@ -570,23 +632,44 @@ components:
             type: object
             $ref: '#/components/schemas/Person'
       type: object
-    Address:
+    Tunnel:
+      x-swagger-router-model: tunnelbot.model.Tunnel
+      required:
+        - name
       properties:
-        street:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
           type: string
-          example: 549 Almond St
-        city:
-          type: string
-          example: Palo Alto
-        state:
-          type: string
-          example: CA
-        zip:
-          type: string
-          example: 94301
-      xml:
-        name: address
+          example: tunnel01
       type: object
+    Tunnels:
+      x-swagger-router-model: tunnelbot.model.Tunnels
+      type: array
+      items:
+        type: object
+    Device:
+      x-swagger-router-model: tunnelbot.model.Device
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: tunnel01
+        category:
+          $ref: '#/components/schemas/Category'
+      type: object
+    Devices:
+      x-swagger-router-model: tunnelbot.model.Devices
+      type: array
+      items:
+        type: object
     Person:
       x-swagger-router-model: tunnelbot.model.Person
       properties:
@@ -618,18 +701,22 @@ components:
             - admin
             - owner
       type: object
-    Tunnel:
-      x-swagger-router-model: tunnelbot.model.Tunnel
-      required:
-        - name
+    Address:
       properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        name:
+        street:
           type: string
-          example: tunnel01
+          example: 549 Almond St
+        city:
+          type: string
+          example: Palo Alto
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: 94301
+      xml:
+        name: address
       type: object
     Category:
       type: object
@@ -641,21 +728,6 @@ components:
         name:
           type: string
           example: Lighting
-    Device:
-      x-swagger-router-model: tunnelbot.model.Device
-      required:
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        name:
-          type: string
-          example: tunnel01
-        category:
-          $ref: '#/components/schemas/Category'
-      type: object
     ApiResponse:
       properties:
         code:
@@ -702,11 +774,3 @@ components:
           schema:
             $ref: '#/components/schemas/Person'
       description: Person object that needs to be added or removed from farm
-    People:
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Person'
-      description: List of person objects
