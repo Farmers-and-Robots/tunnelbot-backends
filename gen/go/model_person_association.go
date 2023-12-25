@@ -10,21 +10,13 @@
 
 package openapi
 
-type Person struct {
+type PersonAssociation struct {
 
-	Id int64 `json:"id,omitempty"`
-
-	Kind string `json:"kind,omitempty"`
+	PersonId int64 `json:"personId,omitempty"`
 
 	DisplayName string `json:"displayName,omitempty"`
 
-	FirstName string `json:"firstName,omitempty"`
-
-	LastName string `json:"lastName,omitempty"`
-
 	Email string `json:"email,omitempty"`
 
-	Phone string `json:"phone,omitempty"`
-
-	FarmAssociations []FarmAssociation `json:"farmAssociations,omitempty"`
+	Role Role `json:"role,omitempty"`
 }

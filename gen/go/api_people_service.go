@@ -27,6 +27,17 @@ func NewPeopleApiService() PeopleApiServicer {
 	return &PeopleApiService{}
 }
 
+// GetPeople - Return the people associated with a farm
+func (s *PeopleApiService) GetPeople(ctx context.Context) (ImplResponse, error) {
+	// TODO - update GetPeople with the required logic for this service method.
+	// Add api_people_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+
+	//TODO: Uncomment the next line to return response Response(200, []Person{}) or use other options such as http.Ok ...
+	//return Response(200, []Person{}), nil
+
+	return Response(http.StatusNotImplemented, nil), errors.New("GetPeople method not implemented")
+}
+
 // GetPersonById - Find person by id
 func (s *PeopleApiService) GetPersonById(ctx context.Context, personId int64) (ImplResponse, error) {
 	// TODO - update GetPersonById with the required logic for this service method.

@@ -10,11 +10,11 @@
 
 package openapi
 
-type Tunnel struct {
+type FarmAssociation struct {
 
-	Id int64 `json:"id,omitempty"`
+	FarmId int64 `json:"farmId,omitempty"`
 
-	Kind string `json:"kind,omitempty"`
+	FarmName string `json:"farmName,omitempty"`
 
-	Name string `json:"name"`
+	Role Role `json:"role,omitempty"`
 }

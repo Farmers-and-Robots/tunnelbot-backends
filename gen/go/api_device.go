@@ -50,6 +50,12 @@ func (c *DeviceApiController) Routes() Routes {
 			c.GetDeviceById,
 		},
 		{
+			"GetDevices",
+			strings.ToUpper("Get"),
+			"/api/v1/device",
+			c.GetDevices,
+		},
+		{
 			"UpdateDevice",
 			strings.ToUpper("Put"),
 			"/api/v1/device",
@@ -106,6 +112,19 @@ func (c *DeviceApiController) GetDeviceById(w http.ResponseWriter, r *http.Reque
 		return
 	}
 	result, err := c.service.GetDeviceById(r.Context(), deviceId)
+	//If an error occured, encode the error with the status code
+	if err != nil {
+		EncodeJSONResponse(err.Error(), &result.Code, w)
+		return
+	}
+	//If no error, encode the body and the result code
+	EncodeJSONResponse(result.Body, &result.Code, w)
+	
+}
+
+// GetDevices - Return the devices on a farm
+func (c *DeviceApiController) GetDevices(w http.ResponseWriter, r *http.Request) { 
+	result, err := c.service.GetDevices(r.Context())
 	//If an error occured, encode the error with the status code
 	if err != nil {
 		EncodeJSONResponse(err.Error(), &result.Code, w)
