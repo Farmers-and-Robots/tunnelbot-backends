@@ -626,12 +626,11 @@ components:
         owners:
           type: array
           items:
-            $ref: '#/components/schemas/Person'
+            $ref: "#/components/schemas/PersonAssociation"
         people:
           type: array
           items:
-            type: object
-            $ref: '#/components/schemas/Person'
+            $ref: "#/components/schemas/PersonAssociation"
       type: object
     Tunnel:
       x-swagger-router-model: tunnelbot.model.Tunnel
@@ -702,15 +701,10 @@ components:
         phone:
           type: string
           example: 12345
-        role:
-          type: string
-          description: The role the person has on a farm
-          example: owner
-          enum:
-            - worker
-            - admin
-            - owner
-      type: object
+        farmAssociations:
+          type: array
+          items:
+            $ref: "#/components/schemas/FarmAssociation"
     Address:
       properties:
         street:
@@ -736,6 +730,38 @@ components:
         - lighting
         - fan
         - other
+    FarmAssociation:
+      properties:
+        farmId:
+          type: integer
+          format: int64
+          example: 10
+        farmName:
+          type: string
+          example: Far by the River
+        role:
+          $ref: "#/components/schemas/Role"
+    PersonAssociation:
+      properties:
+        personId:
+          type: integer
+          format: int64
+          example: 10
+        displayName:
+          type: string
+          example: munjeli
+        email:
+          type: string
+          example: info@farmersandrobots.com
+        role:
+          $ref: "#/components/schemas/Role"
+    Role:
+        type: string
+        example: owner
+        enum:
+          - worker
+          - admin
+          - owner
     ApiResponse:
       properties:
         code:
