@@ -69,6 +69,20 @@ func (s *DeviceApiService) GetDeviceById(ctx context.Context, deviceId int64) (I
 	return Response(http.StatusNotImplemented, nil), errors.New("GetDeviceById method not implemented")
 }
 
+// GetDevices - Return the devices on a farm
+func (s *DeviceApiService) GetDevices(ctx context.Context) (ImplResponse, error) {
+	// TODO - update GetDevices with the required logic for this service method.
+	// Add api_device_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+
+	//TODO: Uncomment the next line to return response Response(200, []Device{}) or use other options such as http.Ok ...
+	//return Response(200, []Device{}), nil
+
+	//TODO: Uncomment the next line to return response Response(405, {}) or use other options such as http.Ok ...
+	//return Response(405, nil),nil
+
+	return Response(http.StatusNotImplemented, nil), errors.New("GetDevices method not implemented")
+}
+
 // UpdateDevice - Update an existing device
 func (s *DeviceApiService) UpdateDevice(ctx context.Context, device Device) (ImplResponse, error) {
 	// TODO - update UpdateDevice with the required logic for this service method.

@@ -10,11 +10,11 @@
 
 package openapi
 
-type Tunnel struct {
+type Role string
 
-	Id int64 `json:"id,omitempty"`
-
-	Kind string `json:"kind,omitempty"`
-
-	Name string `json:"name"`
-}
+// List of Role
+const (
+	WORKER Role = "worker"
+	ADMIN Role = "admin"
+	OWNER Role = "owner"
+)

@@ -612,6 +612,9 @@ components:
           type: integer
           format: int64
           example: 10
+        kind:
+          type: string
+          example: frm
         name:
           type: string
           example: FaR by the River
@@ -619,18 +622,15 @@ components:
           type: string
           format: date-time
         address:
+          $ref: "#/components/schemas/Address"
+        owners:
           type: array
           items:
-            $ref: '#/components/schemas/Address'
-        owner:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
+            $ref: "#/components/schemas/PersonAssociation"
         people:
           type: array
           items:
-            type: object
-            $ref: '#/components/schemas/Person'
+            $ref: "#/components/schemas/PersonAssociation"
       type: object
     Tunnel:
       x-swagger-router-model: tunnelbot.model.Tunnel
@@ -641,6 +641,9 @@ components:
           type: integer
           format: int64
           example: 10
+        kind:
+          type: string
+          example: tun
         name:
           type: string
           example: tunnel01
@@ -659,11 +662,14 @@ components:
           type: integer
           format: int64
           example: 10
+        kind:
+          type: string
+          example: dvc
         name:
           type: string
           example: tunnel01
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: '#/components/schemas/DeviceCategory'
       type: object
     Devices:
       x-swagger-router-model: tunnelbot.model.Devices
@@ -677,30 +683,28 @@ components:
           type: integer
           format: int64
           example: 10
-        username:
+        kind:
           type: string
-          example: theUser
+          example: ppl
+        displayName:
+          type: string
+          example: munjeli
         firstName:
           type: string
-          example: John
+          example: Ele
         lastName:
           type: string
-          example: James
+          example: Munjeli
         email:
           type: string
-          example: john@email.com
+          example: info@farmersandrobots.com
         phone:
           type: string
           example: 12345
-        role:
-          type: string
-          description: The role the person has on a farm
-          example: worker
-          enum:
-            - worker
-            - admin
-            - owner
-      type: object
+        farmAssociations:
+          type: array
+          items:
+            $ref: "#/components/schemas/FarmAssociation"
     Address:
       properties:
         street:
@@ -708,26 +712,56 @@ components:
           example: 549 Almond St
         city:
           type: string
-          example: Palo Alto
+          example: Dubuque
         state:
           type: string
-          example: CA
+          example: IA
         zip:
           type: string
-          example: 94301
-      xml:
-        name: address
+          example: 52001
       type: object
-    Category:
-      type: object
+    DeviceCategory:
+      type: string
+      enum:
+        - curtain
+        - heating
+        - irrigation
+        - weather
+        - lighting
+        - fan
+        - other
+    FarmAssociation:
       properties:
-        id:
+        farmId:
           type: integer
           format: int64
-          example: 1
-        name:
+          example: 10
+        farmName:
           type: string
-          example: Lighting
+          example: Far by the River
+        role:
+          $ref: "#/components/schemas/Role"
+    PersonAssociation:
+      properties:
+        personId:
+          type: integer
+          format: int64
+          example: 10
+        displayName:
+          type: string
+          example: munjeli
+        email:
+          type: string
+          example: info@farmersandrobots.com
+        role:
+          $ref: "#/components/schemas/Role"
+    Role:
+        type: string
+        example: owner
+        enum:
+          - worker
+          - admin
+          - owner
     ApiResponse:
       properties:
         code:
@@ -744,16 +778,10 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Farm'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Farm'
       description: Farm object that needs to be added to db
     Tunnel:
       content:
         application/json:
-          schema:
-            $ref: '#/components/schemas/Tunnel'
-        application/xml:
           schema:
             $ref: '#/components/schemas/Tunnel'
     Device:
@@ -761,16 +789,10 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Device'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Device'
       description: Tunnel object that needs to be added to db
     Person:
       content:
         application/json:
-          schema:
-            $ref: '#/components/schemas/Person'
-        application/xml:
           schema:
             $ref: '#/components/schemas/Person'
       description: Person object that needs to be added or removed from farm

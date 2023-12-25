@@ -17,14 +17,14 @@ tags:
 - description: Operations for creating the farm scope in tunnelbot.
   name: farm
 - description: Operations for tunnels in tunnelbot.
-  name: tunnels
+  name: tunnel
 - description: Manage admins and workers for a tunnel farm.
   name: people
 - description: Control devices in tunnels with a connector.
   externalDocs:
     description: Find out more
     url: https://github.com/orgs/Farmers-and-Robots/projects/4
-  name: devices
+  name: device
 paths:
   /farm:
     post:
@@ -270,6 +270,27 @@ paths:
       tags:
       - farm
   /tunnel:
+    get:
+      description: Return the tunnels on a farm
+      operationId: getTunnels
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Tunnel'
+                type: array
+          description: Successful operation
+        "405":
+          description: Invalid input
+      security:
+      - tunnelbot_auth:
+        - write:tunnel
+        - read:tunnel
+      summary: Return the tunnels on a farm
+      tags:
+      - tunnel
     post:
       description: Add a new tunnel to the db
       operationId: addTunnel
@@ -399,6 +420,27 @@ paths:
       tags:
       - tunnel
   /device:
+    get:
+      description: Return the devices on a farm
+      operationId: getDevices
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Device'
+                type: array
+          description: Successful operation
+        "405":
+          description: Invalid input
+      security:
+      - tunnelbot_auth:
+        - write:tunnel
+        - read:tunnel
+      summary: Return the devices on a farm
+      tags:
+      - device
     post:
       description: Add a new device to the db
       operationId: addDevice
@@ -527,6 +569,26 @@ paths:
       summary: Find device by id
       tags:
       - device
+  /people/:
+    get:
+      description: Return the people associated with a farm
+      operationId: getPeople
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Person'
+                type: array
+          description: Successful operation
+      security:
+      - tunnelbot_auth:
+        - write:tunnel
+        - read:tunnel
+      summary: Return the people associated with a farm
+      tags:
+      - people
   /people/{personId}:
     get:
       description: Returns a single person
@@ -570,24 +632,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Farm'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Farm'
       description: Farm object that needs to be added to db
     Tunnel:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Tunnel'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Tunnel'
     Device:
       content:
         application/json:
-          schema:
-            $ref: '#/components/schemas/Device'
-        application/xml:
           schema:
             $ref: '#/components/schemas/Device'
       description: Tunnel object that needs to be added to db
@@ -596,68 +649,45 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Person'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Person'
       description: Person object that needs to be added or removed from farm
-    People:
-      content:
-        application/json:
-          schema:
-            items:
-              $ref: '#/components/schemas/Person'
-            type: array
-      description: List of person objects
   schemas:
     Farm:
       example:
-        owner:
-        - firstName: John
-          lastName: James
-          role: worker
-          phone: "12345"
-          id: 10
-          email: john@email.com
-          username: theUser
-        - firstName: John
-          lastName: James
-          role: worker
-          phone: "12345"
-          id: 10
-          email: john@email.com
-          username: theUser
         address:
-        - zip: "94301"
-          city: Palo Alto
+          zip: "52001"
+          city: Dubuque
           street: 549 Almond St
-          state: CA
-        - zip: "94301"
-          city: Palo Alto
-          street: 549 Almond St
-          state: CA
+          state: IA
+        kind: frm
         name: FaR by the River
+        owners:
+        - role: owner
+          displayName: munjeli
+          personId: 10
+          email: info@farmersandrobots.com
+        - role: owner
+          displayName: munjeli
+          personId: 10
+          email: info@farmersandrobots.com
         id: 10
         people:
-        - firstName: John
-          lastName: James
-          role: worker
-          phone: "12345"
-          id: 10
-          email: john@email.com
-          username: theUser
-        - firstName: John
-          lastName: James
-          role: worker
-          phone: "12345"
-          id: 10
-          email: john@email.com
-          username: theUser
+        - role: owner
+          displayName: munjeli
+          personId: 10
+          email: info@farmersandrobots.com
+        - role: owner
+          displayName: munjeli
+          personId: 10
+          email: info@farmersandrobots.com
         createDate: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
           example: 10
           format: int64
           type: integer
+        kind:
+          example: frm
+          type: string
         name:
           example: FaR by the River
           type: string
@@ -665,82 +695,20 @@ components:
           format: date-time
           type: string
         address:
+          $ref: '#/components/schemas/Address'
+        owners:
           items:
-            $ref: '#/components/schemas/Address'
-          type: array
-        owner:
-          items:
-            $ref: '#/components/schemas/Person'
+            $ref: '#/components/schemas/PersonAssociation'
           type: array
         people:
           items:
-            $ref: '#/components/schemas/Person'
+            $ref: '#/components/schemas/PersonAssociation'
           type: array
       type: object
       x-swagger-router-model: tunnelbot.model.Order
-    Address:
-      example:
-        zip: "94301"
-        city: Palo Alto
-        street: 549 Almond St
-        state: CA
-      properties:
-        street:
-          example: 549 Almond St
-          type: string
-        city:
-          example: Palo Alto
-          type: string
-        state:
-          example: CA
-          type: string
-        zip:
-          example: "94301"
-          type: string
-      type: object
-      xml:
-        name: address
-    Person:
-      example:
-        firstName: John
-        lastName: James
-        role: worker
-        phone: "12345"
-        id: 10
-        email: john@email.com
-        username: theUser
-      properties:
-        id:
-          example: 10
-          format: int64
-          type: integer
-        username:
-          example: theUser
-          type: string
-        firstName:
-          example: John
-          type: string
-        lastName:
-          example: James
-          type: string
-        email:
-          example: john@email.com
-          type: string
-        phone:
-          example: "12345"
-          type: string
-        role:
-          description: The role the person has on a farm
-          enum:
-          - worker
-          - admin
-          - owner
-          example: worker
-          type: string
-      type: object
-      x-swagger-router-model: tunnelbot.model.Person
     Tunnel:
       example:
+        kind: tun
         name: tunnel01
         id: 10
       properties:
@@ -748,6 +716,9 @@ components:
           example: 10
           format: int64
           type: integer
+        kind:
+          example: tun
+          type: string
         name:
           example: tunnel01
           type: string
@@ -755,40 +726,153 @@ components:
       - name
       type: object
       x-swagger-router-model: tunnelbot.model.Tunnel
-    Category:
-      example:
-        name: Lighting
-        id: 1
-      properties:
-        id:
-          example: 1
-          format: int64
-          type: integer
-        name:
-          example: Lighting
-          type: string
-      type: object
+    Tunnels:
+      items:
+        $ref: '#/components/schemas/Tunnel'
+      type: array
+      x-swagger-router-model: tunnelbot.model.Tunnels
     Device:
       example:
+        kind: dvc
         name: tunnel01
         id: 10
-        category:
-          name: Lighting
-          id: 1
       properties:
         id:
           example: 10
           format: int64
           type: integer
+        kind:
+          example: dvc
+          type: string
         name:
           example: tunnel01
           type: string
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: '#/components/schemas/DeviceCategory'
       required:
       - name
       type: object
       x-swagger-router-model: tunnelbot.model.Device
+    Devices:
+      items:
+        $ref: '#/components/schemas/Device'
+      type: array
+      x-swagger-router-model: tunnelbot.model.Devices
+    Person:
+      example:
+        firstName: Ele
+        lastName: Munjeli
+        phone: "12345"
+        farmAssociations:
+        - farmName: Far by the River
+          role: owner
+          farmId: 10
+        - farmName: Far by the River
+          role: owner
+          farmId: 10
+        kind: ppl
+        displayName: munjeli
+        id: 10
+        email: info@farmersandrobots.com
+      properties:
+        id:
+          example: 10
+          format: int64
+          type: integer
+        kind:
+          example: ppl
+          type: string
+        displayName:
+          example: munjeli
+          type: string
+        firstName:
+          example: Ele
+          type: string
+        lastName:
+          example: Munjeli
+          type: string
+        email:
+          example: info@farmersandrobots.com
+          type: string
+        phone:
+          example: "12345"
+          type: string
+        farmAssociations:
+          items:
+            $ref: '#/components/schemas/FarmAssociation'
+          type: array
+      x-swagger-router-model: tunnelbot.model.Person
+    Address:
+      example:
+        zip: "52001"
+        city: Dubuque
+        street: 549 Almond St
+        state: IA
+      properties:
+        street:
+          example: 549 Almond St
+          type: string
+        city:
+          example: Dubuque
+          type: string
+        state:
+          example: IA
+          type: string
+        zip:
+          example: "52001"
+          type: string
+      type: object
+    DeviceCategory:
+      enum:
+      - curtain
+      - heating
+      - irrigation
+      - weather
+      - lighting
+      - fan
+      - other
+      type: string
+    FarmAssociation:
+      example:
+        farmName: Far by the River
+        role: owner
+        farmId: 10
+      properties:
+        farmId:
+          example: 10
+          format: int64
+          type: integer
+        farmName:
+          example: Far by the River
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+    PersonAssociation:
+      example:
+        role: owner
+        displayName: munjeli
+        personId: 10
+        email: info@farmersandrobots.com
+      properties:
+        personId:
+          example: 10
+          format: int64
+          type: integer
+        displayName:
+          example: munjeli
+          type: string
+        email:
+          example: info@farmersandrobots.com
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+    Role:
+      enum:
+      - worker
+      - admin
+      - owner
+      example: owner
+      type: string
     ApiResponse:
       properties:
         code:

@@ -69,6 +69,20 @@ func (s *TunnelApiService) GetTunnelById(ctx context.Context, tunnelId int64) (I
 	return Response(http.StatusNotImplemented, nil), errors.New("GetTunnelById method not implemented")
 }
 
+// GetTunnels - Return the tunnels on a farm
+func (s *TunnelApiService) GetTunnels(ctx context.Context) (ImplResponse, error) {
+	// TODO - update GetTunnels with the required logic for this service method.
+	// Add api_tunnel_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+
+	//TODO: Uncomment the next line to return response Response(200, []Tunnel{}) or use other options such as http.Ok ...
+	//return Response(200, []Tunnel{}), nil
+
+	//TODO: Uncomment the next line to return response Response(405, {}) or use other options such as http.Ok ...
+	//return Response(405, nil),nil
+
+	return Response(http.StatusNotImplemented, nil), errors.New("GetTunnels method not implemented")
+}
+
 // UpdateTunnel - Update an existing tunnel
 func (s *TunnelApiService) UpdateTunnel(ctx context.Context, tunnel Tunnel) (ImplResponse, error) {
 	// TODO - update UpdateTunnel with the required logic for this service method.

@@ -50,6 +50,12 @@ func (c *TunnelApiController) Routes() Routes {
 			c.GetTunnelById,
 		},
 		{
+			"GetTunnels",
+			strings.ToUpper("Get"),
+			"/api/v1/tunnel",
+			c.GetTunnels,
+		},
+		{
 			"UpdateTunnel",
 			strings.ToUpper("Put"),
 			"/api/v1/tunnel",
@@ -106,6 +112,19 @@ func (c *TunnelApiController) GetTunnelById(w http.ResponseWriter, r *http.Reque
 		return
 	}
 	result, err := c.service.GetTunnelById(r.Context(), tunnelId)
+	//If an error occured, encode the error with the status code
+	if err != nil {
+		EncodeJSONResponse(err.Error(), &result.Code, w)
+		return
+	}
+	//If no error, encode the body and the result code
+	EncodeJSONResponse(result.Body, &result.Code, w)
+	
+}
+
+// GetTunnels - Return the tunnels on a farm
+func (c *TunnelApiController) GetTunnels(w http.ResponseWriter, r *http.Request) { 
+	result, err := c.service.GetTunnels(r.Context())
 	//If an error occured, encode the error with the status code
 	if err != nil {
 		EncodeJSONResponse(err.Error(), &result.Code, w)

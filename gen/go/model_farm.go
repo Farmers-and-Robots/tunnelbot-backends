@@ -18,13 +18,15 @@ type Farm struct {
 
 	Id int64 `json:"id,omitempty"`
 
+	Kind string `json:"kind,omitempty"`
+
 	Name string `json:"name,omitempty"`
 
 	CreateDate time.Time `json:"createDate,omitempty"`
 
-	Address []Address `json:"address,omitempty"`
+	Address Address `json:"address,omitempty"`
 
-	Owner []Person `json:"owner,omitempty"`
+	Owners []PersonAssociation `json:"owners,omitempty"`
 
-	People []Person `json:"people,omitempty"`
+	People []PersonAssociation `json:"people,omitempty"`
 }

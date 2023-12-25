@@ -14,7 +14,9 @@ type Device struct {
 
 	Id int64 `json:"id,omitempty"`
 
+	Kind string `json:"kind,omitempty"`
+
 	Name string `json:"name"`
 
-	Category Category `json:"category,omitempty"`
+	Category DeviceCategory `json:"category,omitempty"`
 }

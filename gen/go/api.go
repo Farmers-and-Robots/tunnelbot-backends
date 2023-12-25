@@ -24,6 +24,7 @@ type DeviceApiRouter interface {
 	AddDevice(http.ResponseWriter, *http.Request)
 	DeleteDevice(http.ResponseWriter, *http.Request)
 	GetDeviceById(http.ResponseWriter, *http.Request)
+	GetDevices(http.ResponseWriter, *http.Request)
 	UpdateDevice(http.ResponseWriter, *http.Request)
 }
 // FarmApiRouter defines the required methods for binding the api requests to a responses for the FarmApi
@@ -42,6 +43,7 @@ type FarmApiRouter interface {
 // The PeopleApiRouter implementation should parse necessary information from the http request, 
 // pass the data to a PeopleApiServicer to perform the required actions, then write the service results to the http response.
 type PeopleApiRouter interface { 
+	GetPeople(http.ResponseWriter, *http.Request)
 	GetPersonById(http.ResponseWriter, *http.Request)
 }
 // TunnelApiRouter defines the required methods for binding the api requests to a responses for the TunnelApi
@@ -51,6 +53,7 @@ type TunnelApiRouter interface {
 	AddTunnel(http.ResponseWriter, *http.Request)
 	DeleteTunnel(http.ResponseWriter, *http.Request)
 	GetTunnelById(http.ResponseWriter, *http.Request)
+	GetTunnels(http.ResponseWriter, *http.Request)
 	UpdateTunnel(http.ResponseWriter, *http.Request)
 }
 
@@ -63,6 +66,7 @@ type DeviceApiServicer interface {
 	AddDevice(context.Context, Device) (ImplResponse, error)
 	DeleteDevice(context.Context, int64, string) (ImplResponse, error)
 	GetDeviceById(context.Context, int64) (ImplResponse, error)
+	GetDevices(context.Context) (ImplResponse, error)
 	UpdateDevice(context.Context, Device) (ImplResponse, error)
 }
 
@@ -87,6 +91,7 @@ type FarmApiServicer interface {
 // while the service implementation can ignored with the .openapi-generator-ignore file 
 // and updated with the logic required for the API.
 type PeopleApiServicer interface { 
+	GetPeople(context.Context) (ImplResponse, error)
 	GetPersonById(context.Context, int64) (ImplResponse, error)
 }
 
@@ -99,5 +104,6 @@ type TunnelApiServicer interface {
 	AddTunnel(context.Context, Tunnel) (ImplResponse, error)
 	DeleteTunnel(context.Context, int64, string) (ImplResponse, error)
 	GetTunnelById(context.Context, int64) (ImplResponse, error)
+	GetTunnels(context.Context) (ImplResponse, error)
 	UpdateTunnel(context.Context, Tunnel) (ImplResponse, error)
 }
