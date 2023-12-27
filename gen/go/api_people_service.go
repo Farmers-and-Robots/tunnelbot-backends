@@ -12,12 +12,12 @@ package openapi
 
 import (
 	"context"
-	"net/http"
 	"errors"
+	"net/http"
 )
 
 // PeopleApiService is a service that implents the logic for the PeopleApiServicer
-// This service should implement the business logic for every endpoint for the PeopleApi API. 
+// This service should implement the business logic for every endpoint for the PeopleApi API.
 // Include any external packages or services that will be required by this service.
 type PeopleApiService struct {
 }
@@ -54,4 +54,3 @@ func (s *PeopleApiService) GetPersonById(ctx context.Context, personId int64) (I
 
 	return Response(http.StatusNotImplemented, nil), errors.New("GetPersonById method not implemented")
 }
-
