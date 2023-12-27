@@ -14,6 +14,8 @@ externalDocs:
   url: https://github.com/orgs/Farmers-and-Robots/projects/4
 servers:
   - url: https://tunnelbot.swagger.io/api/v1
+security:
+  - firebase: [ ]
 tags:
   - name: farm
     description: Operations for creating the farm scope in tunnelbot.
@@ -57,10 +59,6 @@ paths:
           description: Farm not found
         '405':
           description: Validation exception
-      security:
-        - tunnelbot_auth:
-            - write:farm
-            - read:farm
     post:
       tags:
         - farm
@@ -86,10 +84,6 @@ paths:
                 $ref: '#/components/schemas/Farm'
         '405':
           description: Invalid input
-      security:
-        - tunnelbot_auth:
-            - write:farm
-            - read:farm
   /farm/findByName:
     get:
       tags:
@@ -113,10 +107,6 @@ paths:
                   $ref: '#/components/schemas/Farm'
         '400':
           description: Invalid status value
-      security:
-        - tunnelbot_auth:
-            - write:farm
-            - read:farm
   /farm/{farmId}:
     get:
       tags:
@@ -146,11 +136,6 @@ paths:
           description: Invalid id supplied
         '404':
           description: Farm not found
-      security:
-        - api_key: []
-        - tunnelbot_auth:
-            - write:farm
-            - read:farm
     delete:
       tags:
         - farm
@@ -174,10 +159,6 @@ paths:
       responses:
         '400':
           description: Invalid farm value
-      security:
-        - tunnelbot_auth:
-            - write:farm
-            - read:farm
   /farm/addFarmAccess/{farmId}:
     put:
       tags:
@@ -213,10 +194,6 @@ paths:
           description: Farm not found
         '405':
           description: Validation exception
-      security:
-        - tunnelbot_auth:
-            - write:farm
-            - read:farm
   /farm/removeFarmAccess/{farmId}:
     put:
       tags:
@@ -255,10 +232,6 @@ paths:
           description: Farm not found
         '405':
           description: Validation exception
-      security:
-        - tunnelbot_auth:
-            - write:farm
-            - read:farm
   /tunnel:
     put:
       tags:
@@ -289,10 +262,6 @@ paths:
           description: Tunnel not found
         '405':
           description: Validation exception
-      security:
-        - tunnelbot_auth:
-            - write:tunnel
-            - read:tunnel
     post:
       tags:
         - tunnel
@@ -318,10 +287,6 @@ paths:
                 $ref: '#/components/schemas/Tunnel'
         '405':
           description: Invalid input
-      security:
-        - tunnelbot_auth:
-            - write:tunnel
-            - read:tunnel
     get:
       tags:
         - tunnel
@@ -339,10 +304,6 @@ paths:
                   $ref: "#/components/schemas/Tunnel"
         '405':
           description: Invalid input
-      security:
-        - tunnelbot_auth:
-            - write:tunnel
-            - read:tunnel
   /tunnel/{tunnelId}:
     get:
       tags:
@@ -372,11 +333,6 @@ paths:
           description: Invalid id supplied
         '404':
           description: Tunnel not found
-      security:
-        - api_key: [ ]
-        - tunnelbot_auth:
-            - write:tunnel
-            - read:tunnel
     delete:
       tags:
         - tunnel
@@ -400,10 +356,6 @@ paths:
       responses:
         '400':
           description: Invalid tunnel value
-      security:
-        - tunnelbot_auth:
-            - write:tunnel
-            - read:tunnel
   /device:
     put:
       tags:
@@ -434,10 +386,6 @@ paths:
           description: Device not found
         '405':
           description: Validation exception
-      security:
-        - tunnelbot_auth:
-            - write:device
-            - read:device
     post:
       tags:
         - device
@@ -463,10 +411,6 @@ paths:
                 $ref: '#/components/schemas/Device'
         '405':
           description: Invalid input
-      security:
-        - tunnelbot_auth:
-            - write:device
-            - read:device
     get:
       tags:
         - device
@@ -484,10 +428,6 @@ paths:
                   $ref: "#/components/schemas/Device"
         '405':
           description: Invalid input
-      security:
-        - tunnelbot_auth:
-            - write:tunnel
-            - read:tunnel
   /device/{deviceId}:
     get:
       tags:
@@ -517,11 +457,6 @@ paths:
           description: Invalid id supplied
         '404':
           description: Device not found
-      security:
-        - api_key: [ ]
-        - tunnelbot_auth:
-            - write:device
-            - read:device
     delete:
       tags:
         - device
@@ -545,10 +480,6 @@ paths:
       responses:
         '400':
           description: Invalid device value
-      security:
-        - tunnelbot_auth:
-            - write:device
-            - read:device
   /people/:
     get:
       tags:
@@ -565,10 +496,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Person"
-      security:
-        - tunnelbot_auth:
-            - write:tunnel
-            - read:tunnel
   /people/{personId}:
     get:
       tags:
@@ -598,12 +525,20 @@ paths:
           description: Invalid id supplied
         '404':
           description: Person not found
-      security:
-        - api_key: [ ]
-        - tunnelbot_auth:
-            - write:people
-            - read:people
 components:
+  securitySchemes:
+    firebase:
+      type: "oauth2"
+      flows:
+        implicit:
+          authorizationUrl: ""
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            admin: Grants access to admin operations
+      x-google-issuer: "https://securetoken.google.com/tunnelbot"
+      x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+      x-google-audiences: "tunnelbot"
   schemas:
     Farm:
       x-swagger-router-model: tunnelbot.model.Order
