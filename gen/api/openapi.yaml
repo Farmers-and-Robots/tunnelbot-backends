@@ -13,6 +13,8 @@ externalDocs:
   url: https://github.com/orgs/Farmers-and-Robots/projects/4
 servers:
 - url: https://tunnelbot.swagger.io/api/v1
+security:
+- firebase: []
 tags:
 - description: Operations for creating the farm scope in tunnelbot.
   name: farm
@@ -49,10 +51,6 @@ paths:
           description: Successful operation
         "405":
           description: Invalid input
-      security:
-      - tunnelbot_auth:
-        - write:farm
-        - read:farm
       summary: Add a new farm to the db
       tags:
       - farm
@@ -82,10 +80,6 @@ paths:
           description: Farm not found
         "405":
           description: Validation exception
-      security:
-      - tunnelbot_auth:
-        - write:farm
-        - read:farm
       summary: Update an existing farm
       tags:
       - farm
@@ -111,10 +105,6 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
-      security:
-      - tunnelbot_auth:
-        - write:farm
-        - read:farm
       summary: Finds a farm by name
       tags:
       - farm
@@ -142,10 +132,6 @@ paths:
       responses:
         "400":
           description: Invalid farm value
-      security:
-      - tunnelbot_auth:
-        - write:farm
-        - read:farm
       summary: Deletes a farm
       tags:
       - farm
@@ -176,11 +162,6 @@ paths:
           description: Invalid id supplied
         "404":
           description: Farm not found
-      security:
-      - api_key: []
-      - tunnelbot_auth:
-        - write:farm
-        - read:farm
       summary: Find farm by id
       tags:
       - farm
@@ -218,10 +199,6 @@ paths:
           description: Farm not found
         "405":
           description: Validation exception
-      security:
-      - tunnelbot_auth:
-        - write:farm
-        - read:farm
       summary: Add farm access for an existing person
       tags:
       - farm
@@ -262,10 +239,6 @@ paths:
           description: Farm not found
         "405":
           description: Validation exception
-      security:
-      - tunnelbot_auth:
-        - write:farm
-        - read:farm
       summary: Remove farm access for an existing person
       tags:
       - farm
@@ -284,10 +257,6 @@ paths:
           description: Successful operation
         "405":
           description: Invalid input
-      security:
-      - tunnelbot_auth:
-        - write:tunnel
-        - read:tunnel
       summary: Return the tunnels on a farm
       tags:
       - tunnel
@@ -313,10 +282,6 @@ paths:
           description: Successful operation
         "405":
           description: Invalid input
-      security:
-      - tunnelbot_auth:
-        - write:tunnel
-        - read:tunnel
       summary: Add a new tunnel to the db
       tags:
       - tunnel
@@ -346,10 +311,6 @@ paths:
           description: Tunnel not found
         "405":
           description: Validation exception
-      security:
-      - tunnelbot_auth:
-        - write:tunnel
-        - read:tunnel
       summary: Update an existing tunnel
       tags:
       - tunnel
@@ -377,10 +338,6 @@ paths:
       responses:
         "400":
           description: Invalid tunnel value
-      security:
-      - tunnelbot_auth:
-        - write:tunnel
-        - read:tunnel
       summary: Deletes a tunnel
       tags:
       - tunnel
@@ -411,11 +368,6 @@ paths:
           description: Invalid id supplied
         "404":
           description: Tunnel not found
-      security:
-      - api_key: []
-      - tunnelbot_auth:
-        - write:tunnel
-        - read:tunnel
       summary: Find tunnel by id
       tags:
       - tunnel
@@ -434,10 +386,6 @@ paths:
           description: Successful operation
         "405":
           description: Invalid input
-      security:
-      - tunnelbot_auth:
-        - write:tunnel
-        - read:tunnel
       summary: Return the devices on a farm
       tags:
       - device
@@ -463,10 +411,6 @@ paths:
           description: Successful operation
         "405":
           description: Invalid input
-      security:
-      - tunnelbot_auth:
-        - write:device
-        - read:device
       summary: Add a new device to the db
       tags:
       - device
@@ -496,10 +440,6 @@ paths:
           description: Device not found
         "405":
           description: Validation exception
-      security:
-      - tunnelbot_auth:
-        - write:device
-        - read:device
       summary: Update an existing device
       tags:
       - device
@@ -527,10 +467,6 @@ paths:
       responses:
         "400":
           description: Invalid device value
-      security:
-      - tunnelbot_auth:
-        - write:device
-        - read:device
       summary: Deletes a device
       tags:
       - device
@@ -561,11 +497,6 @@ paths:
           description: Invalid id supplied
         "404":
           description: Device not found
-      security:
-      - api_key: []
-      - tunnelbot_auth:
-        - write:device
-        - read:device
       summary: Find device by id
       tags:
       - device
@@ -582,10 +513,6 @@ paths:
                   $ref: '#/components/schemas/Person'
                 type: array
           description: Successful operation
-      security:
-      - tunnelbot_auth:
-        - write:tunnel
-        - read:tunnel
       summary: Return the people associated with a farm
       tags:
       - people
@@ -617,11 +544,6 @@ paths:
           description: Invalid id supplied
         "404":
           description: Person not found
-      security:
-      - api_key: []
-      - tunnelbot_auth:
-        - write:people
-        - read:people
       summary: Find person by id
       tags:
       - people
@@ -883,3 +805,15 @@ components:
         message:
           type: string
       type: object
+  securitySchemes:
+    firebase:
+      flows:
+        implicit:
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            admin: Grants access to admin operations
+      type: oauth2
+      x-google-issuer: https://securetoken.google.com/tunnelbot
+      x-google-jwks_uri: https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com
+      x-google-audiences: tunnelbot
