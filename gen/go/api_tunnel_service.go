@@ -12,12 +12,12 @@ package openapi
 
 import (
 	"context"
-	"net/http"
 	"errors"
+	"net/http"
 )
 
 // TunnelApiService is a service that implents the logic for the TunnelApiServicer
-// This service should implement the business logic for every endpoint for the TunnelApi API. 
+// This service should implement the business logic for every endpoint for the TunnelApi API.
 // Include any external packages or services that will be required by this service.
 type TunnelApiService struct {
 }
@@ -102,4 +102,3 @@ func (s *TunnelApiService) UpdateTunnel(ctx context.Context, tunnel Tunnel) (Imp
 
 	return Response(http.StatusNotImplemented, nil), errors.New("UpdateTunnel method not implemented")
 }
-
