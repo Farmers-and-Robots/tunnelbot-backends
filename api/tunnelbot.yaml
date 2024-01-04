@@ -232,7 +232,7 @@ paths:
           description: Farm not found
         '405':
           description: Validation exception
-  /tunnel:
+  /tunnels:
     put:
       tags:
         - tunnel
@@ -304,7 +304,7 @@ paths:
                   $ref: "#/components/schemas/Tunnel"
         '405':
           description: Invalid input
-  /tunnel/{tunnelId}:
+  /tunnels/{tunnelId}:
     get:
       tags:
         - tunnel
@@ -356,7 +356,7 @@ paths:
       responses:
         '400':
           description: Invalid tunnel value
-  /device:
+  /devices:
     put:
       tags:
         - device
@@ -428,7 +428,7 @@ paths:
                   $ref: "#/components/schemas/Device"
         '405':
           description: Invalid input
-  /device/{deviceId}:
+  /devices/{deviceId}:
     get:
       tags:
         - device
@@ -480,7 +480,7 @@ paths:
       responses:
         '400':
           description: Invalid device value
-  /people/:
+  /people:
     get:
       tags:
         - people
@@ -525,6 +525,51 @@ paths:
           description: Invalid id supplied
         '404':
           description: Person not found
+  /events:
+    get:
+      tags:
+        - events
+      summary: Return the events associated with a farm
+      description: Return the events associated with a farm
+      operationId: getEvents
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+  /events/{eventId}:
+    get:
+      tags:
+        - events
+      summary: Find event by id
+      description: Returns a single event
+      operationId: getEventById
+      parameters:
+        - name: eventId
+          in: path
+          description: id of event to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Event not found
 components:
   securitySchemes:
     firebase:
@@ -541,7 +586,7 @@ components:
       x-google-audiences: "tunnelbot"
   schemas:
     Farm:
-      x-swagger-router-model: tunnelbot.model.Order
+      x-swagger-router-model: tunnelbot.model.Farm
       properties:
         id:
           type: integer
@@ -640,6 +685,25 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FarmAssociation"
+    Event:
+      x-swagger-router-model: tunnelbot.model.Event
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        kind:
+          type: string
+          example: evt
+        description:
+          type: string
+          example: Right Curtain to 24 percent in tunnel-1 by munjeli
+        date:
+          type: string
+          format: date-time
+        operator:
+          type: string
+          example: munjeli
     Address:
       properties:
         street:

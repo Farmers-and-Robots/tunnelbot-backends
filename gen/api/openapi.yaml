@@ -242,7 +242,7 @@ paths:
       summary: Remove farm access for an existing person
       tags:
       - farm
-  /tunnel:
+  /tunnels:
     get:
       description: Return the tunnels on a farm
       operationId: getTunnels
@@ -314,7 +314,7 @@ paths:
       summary: Update an existing tunnel
       tags:
       - tunnel
-  /tunnel/{tunnelId}:
+  /tunnels/{tunnelId}:
     delete:
       description: delete a tunnel
       operationId: deleteTunnel
@@ -371,7 +371,7 @@ paths:
       summary: Find tunnel by id
       tags:
       - tunnel
-  /device:
+  /devices:
     get:
       description: Return the devices on a farm
       operationId: getDevices
@@ -443,7 +443,7 @@ paths:
       summary: Update an existing device
       tags:
       - device
-  /device/{deviceId}:
+  /devices/{deviceId}:
     delete:
       description: delete a device
       operationId: deleteDevice
@@ -500,7 +500,7 @@ paths:
       summary: Find device by id
       tags:
       - device
-  /people/:
+  /people:
     get:
       description: Return the people associated with a farm
       operationId: getPeople
@@ -547,6 +547,53 @@ paths:
       summary: Find person by id
       tags:
       - people
+  /events:
+    get:
+      description: Return the events associated with a farm
+      operationId: getEvents
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Event'
+                type: array
+          description: Successful operation
+      summary: Return the events associated with a farm
+      tags:
+      - events
+  /events/{eventId}:
+    get:
+      description: Returns a single event
+      operationId: getEventById
+      parameters:
+      - description: id of event to return
+        explode: false
+        in: path
+        name: eventId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: successful operation
+        "400":
+          description: Invalid id supplied
+        "404":
+          description: Event not found
+      summary: Find event by id
+      tags:
+      - events
 components:
   requestBodies:
     Farm:
@@ -627,7 +674,7 @@ components:
             $ref: '#/components/schemas/PersonAssociation'
           type: array
       type: object
-      x-swagger-router-model: tunnelbot.model.Order
+      x-swagger-router-model: tunnelbot.model.Farm
     Tunnel:
       example:
         kind: tun
@@ -724,6 +771,31 @@ components:
             $ref: '#/components/schemas/FarmAssociation'
           type: array
       x-swagger-router-model: tunnelbot.model.Person
+    Event:
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        kind: evt
+        description: Right Curtain to 24 percent in tunnel-1 by munjeli
+        id: 10
+        operator: munjeli
+      properties:
+        id:
+          example: 10
+          format: int64
+          type: integer
+        kind:
+          example: evt
+          type: string
+        description:
+          example: Right Curtain to 24 percent in tunnel-1 by munjeli
+          type: string
+        date:
+          format: date-time
+          type: string
+        operator:
+          example: munjeli
+          type: string
+      x-swagger-router-model: tunnelbot.model.Event
     Address:
       example:
         zip: "52001"
