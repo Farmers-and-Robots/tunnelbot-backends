@@ -695,6 +695,9 @@ components:
         kind:
           type: string
           example: evt
+        description:
+          type: string
+          example: Right Curtain to 24 percent in tunnel-1 by munjeli
         date:
           type: string
           format: date-time
