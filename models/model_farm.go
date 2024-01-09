@@ -8,7 +8,6 @@ package models
 
 import (
 	validation "github.com/go-ozzo/ozzo-validation/v4"
-	"time"
 )
 
 // Farm is an object.
@@ -16,7 +15,7 @@ type Farm struct {
 	// Address:
 	Address *Address `json:"address,omitempty" mapstructure:"address,omitempty"`
 	// CreateDate:
-	CreateDate time.Time `json:"createDate,omitempty" mapstructure:"createDate,omitempty"`
+	CreateDate interface{} `json:"createDate,omitempty" mapstructure:"createDate,omitempty"`
 	// Id:
 	Id int64 `json:"id,omitempty" mapstructure:"id,omitempty"`
 	// Kind:
@@ -34,9 +33,6 @@ func (m Farm) Validate() error {
 	return validation.Errors{
 		"address": validation.Validate(
 			m.Address,
-		),
-		"createDate": validation.Validate(
-			m.CreateDate, validation.Date(time.RFC3339),
 		),
 		"owners": validation.Validate(
 			m.Owners,
@@ -58,12 +54,12 @@ func (m *Farm) SetAddress(val *Address) {
 }
 
 // GetCreateDate returns the CreateDate property
-func (m Farm) GetCreateDate() time.Time {
+func (m Farm) GetCreateDate() interface{} {
 	return m.CreateDate
 }
 
 // SetCreateDate sets the CreateDate property
-func (m *Farm) SetCreateDate(val time.Time) {
+func (m *Farm) SetCreateDate(val interface{}) {
 	m.CreateDate = val
 }
 
