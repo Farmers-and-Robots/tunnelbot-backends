@@ -19,7 +19,38 @@ func TestFarm_Validate(t *testing.T) {
 		m         Farm
 		assertion assert.ErrorAssertionFunc
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m: Farm{
+				Address: &Address{
+					City:   "Dubuque",
+					State:  "IA",
+					Street: "549 Almond",
+					Zip:    "52001",
+				},
+				CreateDate: time.Now(),
+				Id:         1,
+				Kind:       "frm",
+				Name:       "TestFarm",
+				Owners: []PersonAssociation{
+					{
+						DisplayName: "Test Person",
+						Email:       "foo@far.com",
+						PersonId:    1,
+						Role:        "owner",
+					},
+				},
+				People: []PersonAssociation{
+					{
+						DisplayName: "Test Person",
+						Email:       "foo@far.com",
+						PersonId:    1,
+						Role:        "owner",
+					},
+				},
+			},
+			assertion: assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
