@@ -20,12 +20,7 @@ func TestAddress_Validate(t *testing.T) {
 	}{
 		{
 			name: "valid address",
-			m: Address{
-				City:   "Dubuque",
-				State:  "IA",
-				Street: "549 Almond",
-				Zip:    "52001",
-			},
+			m: ValidAddress,
 			assertion: assert.NoError,
 		},
 		{

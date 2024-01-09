@@ -31,3 +31,9 @@ var ValidPersonAssociation = PersonAssociation{
 
 var ValidFarmName = "TestFarm"
 var ValidCreateDate = "2021-01-01T00:00:00Z"
+var NewValidAddress = Address{
+	City:   "Dubuque",
+	State:  "IA",
+	Street: "5050 Shiras Ave",
+	Zip:    "52001",
+}
