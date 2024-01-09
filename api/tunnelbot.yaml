@@ -599,8 +599,8 @@ components:
           type: string
           example: FaR by the River
         createDate:
-          type: string
-          format: date-time
+          x-go-type:
+            type: time.Time
         address:
           $ref: "#/components/schemas/Address"
         owners:
