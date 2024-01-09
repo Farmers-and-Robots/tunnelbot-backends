@@ -18,7 +18,11 @@ func TestDevice_Validate(t *testing.T) {
 		m         Device
 		assertion assert.ErrorAssertionFunc
 	}{
-		// TODO: Add test cases.
+		{
+			name:      "valid",
+			m:         ValidDevice,
+			assertion: assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -33,7 +37,11 @@ func TestDevice_GetCategory(t *testing.T) {
 		m    Device
 		want DeviceCategory
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidDevice,
+			want: DeviceCategory("heating"),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -66,7 +74,11 @@ func TestDevice_GetId(t *testing.T) {
 		m    Device
 		want int64
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidDevice,
+			want: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -99,7 +111,11 @@ func TestDevice_GetKind(t *testing.T) {
 		m    Device
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidDevice,
+			want: "dev",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -132,7 +148,11 @@ func TestDevice_GetName(t *testing.T) {
 		m    Device
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidDevice,
+			want: "Test Device",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -37,3 +37,10 @@ var NewValidAddress = Address{
 	Street: "5050 Shiras Ave",
 	Zip:    "52001",
 }
+
+var ValidDevice = Device{
+	Category: DeviceCategory("heating"),
+	Id:       1,
+	Kind:     "dev",
+	Name:     "Test Device",
+}
