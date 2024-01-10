@@ -25,8 +25,8 @@ func TestFarm_Validate(t *testing.T) {
 			assertion: assert.NoError,
 		},
 		{
-			name: "empty farm",
-			m: Farm{},
+			name:      "empty farm",
+			m:         Farm{},
 			assertion: assert.NoError,
 		},
 	}

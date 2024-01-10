@@ -18,7 +18,11 @@ func TestDeviceCategory_Validate(t *testing.T) {
 		m         DeviceCategory
 		assertion assert.ErrorAssertionFunc
 	}{
-		// TODO: Add test cases.
+		{
+			name:      "valid device category",
+			m:         ValidDevice.Category,
+			assertion: assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
