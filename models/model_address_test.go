@@ -18,9 +18,28 @@ func TestAddress_Validate(t *testing.T) {
 		m         Address
 		assertion assert.ErrorAssertionFunc
 	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
+		{
+			name: "valid address",
+			m: ValidAddress,
+			assertion: assert.NoError,
+		},
+		{
+			name: "empty address",
+			m: Address{
+				City:   "",
+				State:  "",
+				Street: "",
+				Zip:    "",
+			},
+			assertion: assert.NoError,
+		},
+		{
+			name: "nil address",
+			m: Address{},
+			assertion: assert.NoError,
+		},
+		}
+		for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.assertion(t, tt.m.Validate())
 		})

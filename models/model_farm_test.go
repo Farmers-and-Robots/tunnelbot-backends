@@ -19,7 +19,16 @@ func TestFarm_Validate(t *testing.T) {
 		m         Farm
 		assertion assert.ErrorAssertionFunc
 	}{
-		// TODO: Add test cases.
+		{
+			name:      "valid farm",
+			m:         ValidFarm,
+			assertion: assert.NoError,
+		},
+		{
+			name: "empty farm",
+			m: Farm{},
+			assertion: assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -34,7 +43,11 @@ func TestFarm_GetAddress(t *testing.T) {
 		m    Farm
 		want *Address
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m:    ValidFarm,
+			want: &ValidAddress,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -52,11 +65,18 @@ func TestFarm_SetAddress(t *testing.T) {
 		m    *Farm
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m:    &ValidFarm,
+			args: args{
+				val: &NewValidAddress,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetAddress(tt.args.val)
+			assert.Equal(t, tt.args.val, tt.m.GetAddress())
 		})
 	}
 }
@@ -65,9 +85,13 @@ func TestFarm_GetCreateDate(t *testing.T) {
 	tests := []struct {
 		name string
 		m    Farm
-		want time.Time
+		want interface{}
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m:    ValidFarm,
+			want: ValidCreateDate,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -100,7 +124,11 @@ func TestFarm_GetId(t *testing.T) {
 		m    Farm
 		want int64
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m:    ValidFarm,
+			want: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -133,7 +161,11 @@ func TestFarm_GetKind(t *testing.T) {
 		m    Farm
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m:    ValidFarm,
+			want: "frm",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -166,7 +198,11 @@ func TestFarm_GetName(t *testing.T) {
 		m    Farm
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m:    ValidFarm,
+			want: "TestFarm",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -199,7 +235,13 @@ func TestFarm_GetOwners(t *testing.T) {
 		m    Farm
 		want []PersonAssociation
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid farm",
+			m:    ValidFarm,
+			want: []PersonAssociation{
+				ValidPersonAssociation,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -232,7 +274,14 @@ func TestFarm_GetPeople(t *testing.T) {
 		m    Farm
 		want []PersonAssociation
 	}{
-		// TODO: Add test cases.
+
+		{
+			name: "valid farm",
+			m:    ValidFarm,
+			want: []PersonAssociation{
+				ValidPersonAssociation,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
