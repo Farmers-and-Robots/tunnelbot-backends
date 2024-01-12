@@ -19,8 +19,8 @@ func TestAddress_Validate(t *testing.T) {
 		assertion assert.ErrorAssertionFunc
 	}{
 		{
-			name: "valid address",
-			m: ValidAddress,
+			name:      "valid address",
+			m:         ValidAddress,
 			assertion: assert.NoError,
 		},
 		{
@@ -34,12 +34,12 @@ func TestAddress_Validate(t *testing.T) {
 			assertion: assert.NoError,
 		},
 		{
-			name: "nil address",
-			m: Address{},
+			name:      "nil address",
+			m:         Address{},
 			assertion: assert.NoError,
 		},
-		}
-		for _, tt := range tests {
+	}
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.assertion(t, tt.m.Validate())
 		})
@@ -52,7 +52,11 @@ func TestAddress_GetCity(t *testing.T) {
 		m    Address
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidAddress,
+			want: "Dubuque",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -70,7 +74,11 @@ func TestAddress_SetCity(t *testing.T) {
 		m    *Address
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidAddress,
+			args: args{val: NewValidAddress.City},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -85,7 +93,11 @@ func TestAddress_GetState(t *testing.T) {
 		m    Address
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidAddress,
+			want: "IA",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -103,7 +115,11 @@ func TestAddress_SetState(t *testing.T) {
 		m    *Address
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidAddress,
+			args: args{val: NewValidAddress.State},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -118,7 +134,11 @@ func TestAddress_GetStreet(t *testing.T) {
 		m    Address
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidAddress,
+			want: "549 Almond",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -136,7 +156,11 @@ func TestAddress_SetStreet(t *testing.T) {
 		m    *Address
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidAddress,
+			args: args{val: NewValidAddress.Street},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -151,7 +175,11 @@ func TestAddress_GetZip(t *testing.T) {
 		m    Address
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidAddress,
+			want: "52001",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -169,7 +197,11 @@ func TestAddress_SetZip(t *testing.T) {
 		m    *Address
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidAddress,
+			args: args{val: NewValidAddress.Zip},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

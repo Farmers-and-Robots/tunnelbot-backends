@@ -59,7 +59,11 @@ func TestDevice_SetCategory(t *testing.T) {
 		m    *Device
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidDevice,
+			args: args{val: NewValidDeviceCategory},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -95,8 +99,11 @@ func TestDevice_SetId(t *testing.T) {
 		name string
 		m    *Device
 		args args
-	}{
-		// TODO: Add test cases.
+	}{{
+		name: "valid",
+		m:    &ValidDevice,
+		args: args{val: NewValidDevice.Id},
+	},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -132,8 +139,11 @@ func TestDevice_SetKind(t *testing.T) {
 		name string
 		m    *Device
 		args args
-	}{
-		// TODO: Add test cases.
+	}{{
+		name: "valid",
+		m:    &ValidDevice,
+		args: args{val: NewValidDevice.Kind},
+	},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -170,7 +180,11 @@ func TestDevice_SetName(t *testing.T) {
 		m    *Device
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidDevice,
+			args: args{val: NewValidDevice.Name},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

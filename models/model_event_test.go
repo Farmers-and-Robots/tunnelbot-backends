@@ -19,7 +19,6 @@ func TestEvent_Validate(t *testing.T) {
 		m         Event
 		assertion assert.ErrorAssertionFunc
 	}{
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -34,7 +33,6 @@ func TestEvent_GetDate(t *testing.T) {
 		m    Event
 		want time.Time
 	}{
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -52,7 +50,13 @@ func TestEvent_SetDate(t *testing.T) {
 		m    *Event
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidEvent,
+			args: args{
+				val: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -67,7 +71,7 @@ func TestEvent_GetDescription(t *testing.T) {
 		m    Event
 		want string
 	}{
-		// TODO: Add test cases.
+		{},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -85,7 +89,13 @@ func TestEvent_SetDescription(t *testing.T) {
 		m    *Event
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    &ValidEvent,
+			args: args{
+				val: NewValidEvent.Description,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -100,7 +110,11 @@ func TestEvent_GetId(t *testing.T) {
 		m    Event
 		want int64
 	}{
-		// TODO: Add test cases.
+		{
+			name: "valid",
+			m:    ValidEvent,
+			want: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -118,7 +132,13 @@ func TestEvent_SetId(t *testing.T) {
 		m    *Event
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set id",
+			m:    &ValidEvent,
+			args: args{
+				val: NewValidEvent.Id,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -133,7 +153,11 @@ func TestEvent_GetKind(t *testing.T) {
 		m    Event
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "get kind",
+			m:    ValidEvent,
+			want: NewValidEvent.Kind,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -151,7 +175,13 @@ func TestEvent_SetKind(t *testing.T) {
 		m    *Event
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set kind",
+			m:    &ValidEvent,
+			args: args{
+				val: NewValidEvent.Kind,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -166,7 +196,11 @@ func TestEvent_GetOperator(t *testing.T) {
 		m    Event
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "get operator",
+			m:    ValidEvent,
+			want: "Test Operator",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -184,7 +218,11 @@ func TestEvent_SetOperator(t *testing.T) {
 		m    *Event
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set operator",
+			m:    &ValidEvent,
+			args: args{NewValidEvent.Operator},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
