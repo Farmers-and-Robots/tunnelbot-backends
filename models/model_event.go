@@ -8,13 +8,12 @@ package models
 
 import (
 	validation "github.com/go-ozzo/ozzo-validation/v4"
-	"time"
 )
 
 // Event is an object.
 type Event struct {
 	// Date:
-	Date time.Time `json:"date,omitempty" mapstructure:"date,omitempty"`
+	Date string `json:"date,omitempty" mapstructure:"date,omitempty"`
 	// Description:
 	Description string `json:"description,omitempty" mapstructure:"description,omitempty"`
 	// Id:
@@ -27,20 +26,16 @@ type Event struct {
 
 // Validate implements basic validation for this model
 func (m Event) Validate() error {
-	return validation.Errors{
-		"date": validation.Validate(
-			m.Date, validation.Date(time.RFC3339),
-		),
-	}.Filter()
+	return validation.Errors{}.Filter()
 }
 
 // GetDate returns the Date property
-func (m Event) GetDate() time.Time {
+func (m Event) GetDate() string {
 	return m.Date
 }
 
 // SetDate sets the Date property
-func (m *Event) SetDate(val time.Time) {
+func (m *Event) SetDate(val string) {
 	m.Date = val
 }
 

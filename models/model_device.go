@@ -20,6 +20,8 @@ type Device struct {
 	Kind string `json:"kind,omitempty" mapstructure:"kind,omitempty"`
 	// Name:
 	Name string `json:"name" mapstructure:"name"`
+	// TunnelId:
+	TunnelId int64 `json:"tunnelId,omitempty" mapstructure:"tunnelId,omitempty"`
 }
 
 // Validate implements basic validation for this model
@@ -69,4 +71,14 @@ func (m Device) GetName() string {
 // SetName sets the Name property
 func (m *Device) SetName(val string) {
 	m.Name = val
+}
+
+// GetTunnelId returns the TunnelId property
+func (m Device) GetTunnelId() int64 {
+	return m.TunnelId
+}
+
+// SetTunnelId sets the TunnelId property
+func (m *Device) SetTunnelId(val int64) {
+	m.TunnelId = val
 }

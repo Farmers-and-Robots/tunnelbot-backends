@@ -19,12 +19,12 @@ func TestPerson_Validate(t *testing.T) {
 		assertion assert.ErrorAssertionFunc
 	}{
 		{
-			name: "valid person",
-			m: ValidPerson,
+			name:      "valid person",
+			m:         ValidPerson,
 			assertion: assert.NoError,
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.assertion(t, tt.m.Validate())
 		})
@@ -39,11 +39,11 @@ func TestPerson_GetDisplayName(t *testing.T) {
 	}{
 		{
 			name: "get display name",
-			m: ValidPerson,
+			m:    ValidPerson,
 			want: "Test Person",
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetDisplayName())
 		})
@@ -60,12 +60,12 @@ func TestPerson_SetDisplayName(t *testing.T) {
 		args args
 	}{
 		{
-			 name: "set display name",
-			 m: &ValidPerson,
-			 args: args{val: "Test Person 2"},
+			name: "set display name",
+			m:    &ValidPerson,
+			args: args{val: "Test Person 2"},
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetDisplayName(tt.args.val)
 		})
@@ -79,12 +79,12 @@ func TestPerson_GetEmail(t *testing.T) {
 		want string
 	}{
 		{
-		name: "get email",
-		m: ValidPerson,
-		want: "foo@far.com",
+			name: "get email",
+			m:    ValidPerson,
+			want: "foo@far.com",
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetEmail())
 		})
@@ -101,12 +101,12 @@ func TestPerson_SetEmail(t *testing.T) {
 		args args
 	}{
 		{
-		name: "set email",
-		m: &ValidPerson,
-		args: args{val: NewValidPerson.Email},
+			name: "set email",
+			m:    &ValidPerson,
+			args: args{val: NewValidPerson.Email},
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetEmail(tt.args.val)
 		})
@@ -118,9 +118,8 @@ func TestPerson_GetFarmAssociations(t *testing.T) {
 		name string
 		m    Person
 		want []FarmAssociation
-	}{
-	}
-		for _, tt := range tests {
+	}{}
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetFarmAssociations())
 		})
@@ -135,9 +134,8 @@ func TestPerson_SetFarmAssociations(t *testing.T) {
 		name string
 		m    *Person
 		args args
-	}{
-	}
-		for _, tt := range tests {
+	}{}
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetFarmAssociations(tt.args.val)
 		})
@@ -151,12 +149,12 @@ func TestPerson_GetFirstName(t *testing.T) {
 		want string
 	}{
 		{
-		name: "get first name",
-		m: ValidPerson,
-		want: "Test",
+			name: "get first name",
+			m:    ValidPerson,
+			want: "Test",
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetFirstName())
 		})
@@ -173,12 +171,12 @@ func TestPerson_SetFirstName(t *testing.T) {
 		args args
 	}{
 		{
-		name: "set first name",
-		m: &ValidPerson,
-		args: args{val: NewValidPerson.FirstName},
+			name: "set first name",
+			m:    &ValidPerson,
+			args: args{val: NewValidPerson.FirstName},
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetFirstName(tt.args.val)
 		})
@@ -192,12 +190,12 @@ func TestPerson_GetId(t *testing.T) {
 		want int64
 	}{
 		{
-			 name: "get id",
-			 m: ValidPerson,
-			 want: 1,
+			name: "get id",
+			m:    ValidPerson,
+			want: 1,
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetId())
 		})
@@ -214,12 +212,12 @@ func TestPerson_SetId(t *testing.T) {
 		args args
 	}{
 		{
-		name: "set id",
-		m: &ValidPerson,
-		args: args{val: NewValidPerson.Id},
+			name: "set id",
+			m:    &ValidPerson,
+			args: args{val: NewValidPerson.Id},
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetId(tt.args.val)
 		})
@@ -233,12 +231,12 @@ func TestPerson_GetKind(t *testing.T) {
 		want string
 	}{
 		{
-		name: "get kind",
-		m: ValidPerson,
-		want: "per",
+			name: "get kind",
+			m:    ValidPerson,
+			want: "per",
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetKind())
 		})
@@ -255,12 +253,12 @@ func TestPerson_SetKind(t *testing.T) {
 		args args
 	}{
 		{
-		name: "set kind",
-		m: &ValidPerson,
-		args: args{val: NewValidPerson.Kind},
+			name: "set kind",
+			m:    &ValidPerson,
+			args: args{val: NewValidPerson.Kind},
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetKind(tt.args.val)
 		})
@@ -275,11 +273,11 @@ func TestPerson_GetLastName(t *testing.T) {
 	}{
 		{
 			name: "get last name",
-			m: ValidPerson,
+			m:    ValidPerson,
 			want: "Person",
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetLastName())
 		})
@@ -296,12 +294,12 @@ func TestPerson_SetLastName(t *testing.T) {
 		args args
 	}{
 		{
-			  name: "set last name",
-			  m: &ValidPerson,
-			  args: args{val: NewValidPerson.LastName},
+			name: "set last name",
+			m:    &ValidPerson,
+			args: args{val: NewValidPerson.LastName},
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetLastName(tt.args.val)
 		})
@@ -315,12 +313,12 @@ func TestPerson_GetPhone(t *testing.T) {
 		want string
 	}{
 		{
-		    name: "get phone",
-			m: ValidPerson,
+			name: "get phone",
+			m:    ValidPerson,
 			want: "555-555-5555",
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetPhone())
 		})
@@ -337,12 +335,12 @@ func TestPerson_SetPhone(t *testing.T) {
 		args args
 	}{
 		{
-		name: "set phone",
-		m: &ValidPerson,
-		args: args{val: NewValidPerson.Phone},
+			name: "set phone",
+			m:    &ValidPerson,
+			args: args{val: NewValidPerson.Phone},
 		},
 	}
-		for _, tt := range tests {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetPhone(tt.args.val)
 		})
