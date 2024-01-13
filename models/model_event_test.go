@@ -18,8 +18,7 @@ func TestEvent_Validate(t *testing.T) {
 		name      string
 		m         Event
 		assertion assert.ErrorAssertionFunc
-	}{
-	}
+	}{}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.assertion(t, tt.m.Validate())
@@ -32,35 +31,10 @@ func TestEvent_GetDate(t *testing.T) {
 		name string
 		m    Event
 		want time.Time
-	}{
-	}
+	}{}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.m.GetDate())
-		})
-	}
-}
-
-func TestEvent_SetDate(t *testing.T) {
-	type args struct {
-		val time.Time
-	}
-	tests := []struct {
-		name string
-		m    *Event
-		args args
-	}{
-		{
-			name: "valid",
-			m:    &ValidEvent,
-			args: args{
-				val: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tt.m.SetDate(tt.args.val)
 		})
 	}
 }
@@ -227,6 +201,28 @@ func TestEvent_SetOperator(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.m.SetOperator(tt.args.val)
+		})
+	}
+}
+
+func TestEvent_SetDate(t *testing.T) {
+	type args struct {
+		val string
+	}
+	tests := []struct {
+		name string
+		m    *Event
+		args args
+	}{
+		{
+			name: "set date",
+			m:    &ValidEvent,
+			args: args{NewValidEvent.Date},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.m.SetDate(tt.args.val)
 		})
 	}
 }

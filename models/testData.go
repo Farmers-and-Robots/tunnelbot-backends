@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 // ValidFarm is a valid instance of models.Farm.
 var ValidFarm = Farm{
 	Address:    &ValidAddress,
@@ -39,7 +37,27 @@ var ValidPersonAssociation = PersonAssociation{
 }
 
 var ValidFarmName = "TestFarm"
-var ValidCreateDate = "2021-01-01T00:00:00Z"
+var ValidCreateDate = "2020-01-0100:00:00"
+
+var NewValidFarmName = "TestFarm2"
+var NewValidCreateDate = "2020-02-0100:00:00"
+var NewValidPersonAssociation = PersonAssociation{
+	DisplayName: "Test Person 2",
+}
+
+var NewValidFarm = Farm{
+	Address:    &NewValidAddress,
+	CreateDate: NewValidCreateDate,
+	Id:         2,
+	Kind:       "frm",
+	Name:       NewValidFarmName,
+	Owners: []PersonAssociation{
+		NewValidPersonAssociation,
+	},
+	People: []PersonAssociation{
+		NewValidPersonAssociation,
+	},
+}
 
 var ValidDevice = Device{
 	Category: DeviceCategory("heating"),
@@ -58,7 +76,7 @@ var NewValidDevice = Device{
 var NewValidDeviceCategory = DeviceCategory("irrigation")
 
 var ValidEvent = Event{
-	Date:        time.Now(),
+	Date:        "2020-01-0100:00:00",
 	Id:          1,
 	Description: "Test Event",
 	Kind:        "evt",
@@ -66,7 +84,7 @@ var ValidEvent = Event{
 }
 
 var NewValidEvent = Event{
-	Date:        time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
+	Date:        "2020-02-0100:00:00",
 	Id:          2,
 	Description: "Test Event 2",
 	Kind:        "evt",

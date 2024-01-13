@@ -8,7 +8,6 @@ package models
 
 import (
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -88,7 +87,7 @@ func TestFarm_GetCreateDate(t *testing.T) {
 		want interface{}
 	}{
 		{
-			name: "valid farm",
+			name: "get create date",
 			m:    ValidFarm,
 			want: ValidCreateDate,
 		},
@@ -102,14 +101,20 @@ func TestFarm_GetCreateDate(t *testing.T) {
 
 func TestFarm_SetCreateDate(t *testing.T) {
 	type args struct {
-		val time.Time
+		val string
 	}
 	tests := []struct {
 		name string
 		m    *Farm
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set create date",
+			m:    &ValidFarm,
+			args: args{
+				val: NewValidCreateDate,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -125,7 +130,7 @@ func TestFarm_GetId(t *testing.T) {
 		want int64
 	}{
 		{
-			name: "valid farm",
+			name: "get id",
 			m:    ValidFarm,
 			want: 1,
 		},
@@ -146,7 +151,13 @@ func TestFarm_SetId(t *testing.T) {
 		m    *Farm
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set id",
+			m:    &ValidFarm,
+			args: args{
+				val: 1,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -183,7 +194,13 @@ func TestFarm_SetKind(t *testing.T) {
 		m    *Farm
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set kind",
+			m:    &ValidFarm,
+			args: args{
+				val: "frm",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -220,7 +237,13 @@ func TestFarm_SetName(t *testing.T) {
 		m    *Farm
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set name",
+			m:    &ValidFarm,
+			args: args{
+				val: "TestFarm",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -236,7 +259,7 @@ func TestFarm_GetOwners(t *testing.T) {
 		want []PersonAssociation
 	}{
 		{
-			name: "valid farm",
+			name: "get owners",
 			m:    ValidFarm,
 			want: []PersonAssociation{
 				ValidPersonAssociation,
@@ -259,7 +282,15 @@ func TestFarm_SetOwners(t *testing.T) {
 		m    *Farm
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set owvers",
+			m:    &ValidFarm,
+			args: args{
+				val: []PersonAssociation{
+					ValidPersonAssociation,
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -276,7 +307,7 @@ func TestFarm_GetPeople(t *testing.T) {
 	}{
 
 		{
-			name: "valid farm",
+			name: "get people",
 			m:    ValidFarm,
 			want: []PersonAssociation{
 				ValidPersonAssociation,
@@ -299,7 +330,15 @@ func TestFarm_SetPeople(t *testing.T) {
 		m    *Farm
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "set people",
+			m:    &ValidFarm,
+			args: args{
+				val: []PersonAssociation{
+					ValidPersonAssociation,
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

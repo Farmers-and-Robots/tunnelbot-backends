@@ -15,7 +15,7 @@ type Farm struct {
 	// Address:
 	Address *Address `json:"address,omitempty" mapstructure:"address,omitempty"`
 	// CreateDate:
-	CreateDate interface{} `json:"createDate,omitempty" mapstructure:"createDate,omitempty"`
+	CreateDate string `json:"createDate,omitempty" mapstructure:"createDate,omitempty"`
 	// Id:
 	Id int64 `json:"id,omitempty" mapstructure:"id,omitempty"`
 	// Kind:
@@ -54,12 +54,12 @@ func (m *Farm) SetAddress(val *Address) {
 }
 
 // GetCreateDate returns the CreateDate property
-func (m Farm) GetCreateDate() interface{} {
+func (m Farm) GetCreateDate() string {
 	return m.CreateDate
 }
 
 // SetCreateDate sets the CreateDate property
-func (m *Farm) SetCreateDate(val interface{}) {
+func (m *Farm) SetCreateDate(val string) {
 	m.CreateDate = val
 }
 

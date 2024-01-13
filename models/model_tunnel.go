@@ -12,6 +12,8 @@ import (
 
 // Tunnel is an object.
 type Tunnel struct {
+	// DeviceIds:
+	DeviceIds []int64 `json:"deviceIds,omitempty" mapstructure:"deviceIds,omitempty"`
 	// Id:
 	Id int64 `json:"id,omitempty" mapstructure:"id,omitempty"`
 	// Kind:
@@ -22,7 +24,21 @@ type Tunnel struct {
 
 // Validate implements basic validation for this model
 func (m Tunnel) Validate() error {
-	return validation.Errors{}.Filter()
+	return validation.Errors{
+		"deviceIds": validation.Validate(
+			m.DeviceIds,
+		),
+	}.Filter()
+}
+
+// GetDeviceIds returns the DeviceIds property
+func (m Tunnel) GetDeviceIds() []int64 {
+	return m.DeviceIds
+}
+
+// SetDeviceIds sets the DeviceIds property
+func (m *Tunnel) SetDeviceIds(val []int64) {
+	m.DeviceIds = val
 }
 
 // GetId returns the Id property
