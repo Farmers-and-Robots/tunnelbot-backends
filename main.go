@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	fmt.Sprintf("%v", models.Address{
+	fmt.Printf("%v", models.Address{
 		City:   "Dubuque",
 		State:  "IA",
 		Street: "401 S. Main St",
