@@ -599,8 +599,8 @@ components:
           type: string
           example: FaR by the River
         createDate:
-          x-go-type:
-            type: time.Time
+            type: string
+            example:  "2020-01-0100:00:00"
         address:
           $ref: "#/components/schemas/Address"
         owners:
@@ -627,6 +627,12 @@ components:
         name:
           type: string
           example: tunnel01
+        deviceIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1,2,3]
       type: object
     Tunnels:
       x-swagger-router-model: tunnelbot.model.Tunnels
@@ -650,6 +656,10 @@ components:
           example: tunnel01
         category:
           $ref: '#/components/schemas/DeviceCategory'
+        tunnelId:
+            type: integer
+            format: int64
+            example: 10
       type: object
     Devices:
       x-swagger-router-model: tunnelbot.model.Devices
@@ -700,7 +710,7 @@ components:
           example: Right Curtain to 24 percent in tunnel-1 by munjeli
         date:
           type: string
-          format: date-time
+          example:  "2020-01-0100:00:00"
         operator:
           type: string
           example: munjeli
