@@ -25,16 +25,13 @@ jobs:
     - name: Test
       run: go test -v --cover ./...
 
-    - name: Get tag
-      run: echo ::set-env name=TAG::$(date --iso-8601=minutes)
-
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         # Name of the artifact to upload.
         # Optional. Default is 'artifact'
         name:
-          tunnelbot-server${{ env.TAG }}
+          tunnelbot-server${{ github.run_number }}
 
         # A file, directory or wildcard pattern that describes what to upload
         # Required.
